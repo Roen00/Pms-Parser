@@ -29,7 +29,10 @@ case class PmsOptions(
   backgroundColorBottom: PmsColor,
   jetAmount: Long,
   grenades: Byte,
-  medkits: Byte
+  medkits: Byte,
+  weather: Byte,
+  stepsType: Byte,
+  randomId: Long
 )
 
 object PmsOptions {
@@ -42,6 +45,9 @@ object PmsOptions {
       PmsColor.codec ::
       long(32) ::
       byte(8) ::
-      byte(8)
+      byte(8) ::
+      byte(8) ::
+      byte(8) ::
+      long(32)
     ).as[PmsOptions]
 }
