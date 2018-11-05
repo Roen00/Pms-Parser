@@ -1,6 +1,7 @@
 package adt
 
 import scodec._
+import scodec.codecs._
 
 /**
   * struct PMS_FILE {
@@ -24,8 +25,16 @@ import scodec._
   * PMS_WAYPOINT waypoint[waypointCount];
   * };
   */
-case class PmsFile(header: PmsHeader, options: PmsOptions)
+case class PmsFile(
+  header: PmsHeader,
+  options: PmsOptions,
+  polygonCount: Long
+)
 
 object PmsFile {
-  val codec: Codec[PmsFile] = (PmsHeader.codec :: PmsOptions.codec).as[PmsFile]
+  val codec: Codec[PmsFile] = (
+    PmsHeader.codec ::
+      PmsOptions.codec ::
+      long(32)
+    ).as[PmsFile]
 }

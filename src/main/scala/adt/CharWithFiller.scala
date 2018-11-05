@@ -10,7 +10,7 @@ object CharWithFiller {
   def codec(maxLength: Byte): Codec[CharWithFiller] = {
     byte(8).consume { nameLength =>
       val name = vectorOfN(provide(nameLength), byte)
-      val fillerLength = 38 - nameLength
+      val fillerLength = maxLength - nameLength
       val nameFiller = vectorOfN(provide(fillerLength), byte)
       (name :: nameFiller).xmap(toChar, toByte).as[CharWithFiller]
     }(_.value.length.toByte)
