@@ -21,10 +21,20 @@ import scodec._
   * } PMS_OPTIONS;
   */
 
-case class PmsOptions(name: CharWithFiller, texture: CharWithFiller)
+case class PmsOptions(
+  name: CharWithFiller,
+  texture: CharWithFiller,
+  backgroundColorTop: PmsColor,
+  backgroundColorBottom: PmsColor,
+)
 
 object PmsOptions {
   private val nameFillerLength = 38.toByte
   private val textureFillerLength = 24.toByte
-  val codec: Codec[PmsOptions] = (charWithFiller(nameFillerLength) :: charWithFiller(textureFillerLength)).as[PmsOptions]
+  val codec: Codec[PmsOptions] = (
+    charWithFiller(nameFillerLength) ::
+      charWithFiller(textureFillerLength) ::
+      PmsColor.codec ::
+      PmsColor.codec
+    ).as[PmsOptions]
 }
