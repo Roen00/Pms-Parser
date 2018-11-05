@@ -1,7 +1,6 @@
 package adt
 
 import scodec._
-import scodec.codecs._
 
 /**
   * typedef struct tagPMS_OPTIONS {
@@ -21,9 +20,11 @@ import scodec.codecs._
   * LONG randID;
   * } PMS_OPTIONS;
   */
-//case class Name()
-case class PmsOptions(name: CharWithFiller)
+
+case class PmsOptions(name: CharWithFiller, texture: CharWithFiller)
 
 object PmsOptions {
-  val codec: Codec[PmsOptions] = charWithFiller(38).as[PmsOptions]
+  private val nameFillerLength = 38.toByte
+  private val textureFillerLength = 24.toByte
+  val codec: Codec[PmsOptions] = (charWithFiller(nameFillerLength) :: charWithFiller(textureFillerLength)).as[PmsOptions]
 }
