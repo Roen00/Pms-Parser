@@ -32,8 +32,8 @@ object PmsOptions {
   private val nameFillerLength = 38.toByte
   private val textureFillerLength = 24.toByte
   val codec: Codec[PmsOptions] = (
-    charWithFiller(nameFillerLength) ::
-      charWithFiller(textureFillerLength) ::
+    CharWithFiller.codec(nameFillerLength) ::
+      CharWithFiller.codec(textureFillerLength) ::
       PmsColor.codec ::
       PmsColor.codec
     ).as[PmsOptions]
