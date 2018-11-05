@@ -1,6 +1,7 @@
 package adt
 
 import scodec._
+import scodec.codecs._
 
 /**
   * typedef struct tagPMS_OPTIONS {
@@ -26,6 +27,9 @@ case class PmsOptions(
   texture: CharWithFiller,
   backgroundColorTop: PmsColor,
   backgroundColorBottom: PmsColor,
+  jetAmount: Long,
+  grenades: Byte,
+  medkits: Byte
 )
 
 object PmsOptions {
@@ -35,6 +39,9 @@ object PmsOptions {
     CharWithFiller.codec(nameFillerLength) ::
       CharWithFiller.codec(textureFillerLength) ::
       PmsColor.codec ::
-      PmsColor.codec
+      PmsColor.codec ::
+      long(32) ::
+      byte(8) ::
+      byte(8)
     ).as[PmsOptions]
 }
