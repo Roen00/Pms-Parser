@@ -3,8 +3,13 @@ package adt
 import scodec._
 import scodec.codecs._
 
-case class PmsColor(blue: Byte, green: Byte, red: Byte, alpha: Byte)
+case class PmsColor(blue: Short, green: Short, red: Short, alpha: Short)
 
 object PmsColor {
-  val codec: Codec[PmsColor] = (byte(8) :: byte(8) :: byte(8) :: byte(8)).as[PmsColor]
+  val codec: Codec[PmsColor] = (
+    logToStdOut(ushortL(8)) ::
+      logToStdOut(ushortL(8)) ::
+      logToStdOut(ushortL(8)) ::
+      logToStdOut(ushortL(8))
+    ).as[PmsColor]
 }

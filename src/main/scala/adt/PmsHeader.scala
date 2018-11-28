@@ -11,5 +11,5 @@ import scodec.codecs._
 case class PmsHeader(version: Long)
 
 object PmsHeader {
-  val codec: Codec[PmsHeader] = long(32).as[PmsHeader]
+  val codec: Codec[PmsHeader] = longL(32).as[PmsHeader]
 }

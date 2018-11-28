@@ -1,14 +1,14 @@
 package adt
 
 import scodec.Codec
-import scodec.codecs.{byte, provide, vectorOfN}
+import scodec.codecs._
 import shapeless.{::, HNil}
 
 case class CharWithFiller(value: Vector[Char], filler: Vector[Char])
 
 object CharWithFiller {
   def codec(maxLength: Byte): Codec[CharWithFiller] = {
-    byte(8).consume { nameLength =>
+    ushortL(8).consume { nameLength =>
       val name = vectorOfN(provide(nameLength), byte)
       val fillerLength = maxLength - nameLength
       val nameFiller = vectorOfN(provide(fillerLength), byte)

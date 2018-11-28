@@ -16,6 +16,8 @@ libraryDependencies ++= Seq(
 
 libraryDependencies += "org.scodec" %% "scodec-bits" % "1.1.6"
 libraryDependencies += "org.scodec" %% "scodec-core" % "1.10.3"
+libraryDependencies += "com.googlecode.kiama" %% "kiama" % "1.8.0"
+
 
 scalaJSUseMainModuleInitializer := false
 scalaJSModuleKind := ModuleKind.CommonJSModule

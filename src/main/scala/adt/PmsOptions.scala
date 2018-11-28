@@ -28,10 +28,10 @@ case class PmsOptions(
   backgroundColorTop: PmsColor,
   backgroundColorBottom: PmsColor,
   jetAmount: Long,
-  grenades: Byte,
-  medkits: Byte,
-  weather: Byte,
-  stepsType: Byte,
+  grenades: Short,
+  medkits: Short,
+  weather: Short,
+  stepsType: Short,
   randomId: Long
 )
 
@@ -39,15 +39,15 @@ object PmsOptions {
   private val nameFillerLength = 38.toByte
   private val textureFillerLength = 24.toByte
   val codec: Codec[PmsOptions] = (
-    CharWithFiller.codec(nameFillerLength) ::
-      CharWithFiller.codec(textureFillerLength) ::
-      PmsColor.codec ::
-      PmsColor.codec ::
-      long(32) ::
-      byte(8) ::
-      byte(8) ::
-      byte(8) ::
-      byte(8) ::
-      long(32)
+    logToStdOut(CharWithFiller.codec(nameFillerLength)) ::
+      logToStdOut(CharWithFiller.codec(textureFillerLength)) ::
+      logToStdOut(PmsColor.codec) ::
+      logToStdOut(PmsColor.codec) ::
+      logToStdOut(longL(32)) ::
+      logToStdOut(ushort(8)) ::
+      logToStdOut(ushort(8)) ::
+      logToStdOut(ushort(8)) ::
+      logToStdOut(ushort(8)) ::
+      logToStdOut(longL(32))
     ).as[PmsOptions]
 }
