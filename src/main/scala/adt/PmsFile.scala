@@ -28,13 +28,15 @@ import scodec.codecs._
 case class PmsFile(
   header: PmsHeader,
   options: PmsOptions,
-  polygonCount: Short
+  polygons: Vector[PmsPolygon]
 )
 
 object PmsFile {
   val codec: Codec[PmsFile] = (
     logToStdOut(PmsHeader.codec) ::
       logToStdOut(PmsOptions.codec) ::
-      logToStdOut(shortL(16))
+      ulongL(32).consume(polygonCount => {
+        vectorOfN(provide(polygonCount.toInt), PmsPolygon.codec)
+      })(_.length)
     ).as[PmsFile]
 }
