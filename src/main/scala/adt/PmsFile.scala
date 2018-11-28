@@ -29,19 +29,18 @@ case class PmsFile(
   header: PmsHeader,
   options: PmsOptions,
   polygons: Vector[PmsPolygon],
-  vectorOfSectors: VectorOfSectors
+  vectorOfSectors: VectorOfSectors,
+  objects: Vector[PmsObject]
 )
 
 object PmsFile {
 
-  private val polygonsCodec: Codec[Vector[PmsPolygon]] = ulongL(32).consume(polygonCount => {
-    vectorOfN(provide(polygonCount.toInt), PmsPolygon.codec)
-  })(_.length)
 
   val codec: Codec[PmsFile] = (
     logToStdOut(PmsHeader.codec) ::
       logToStdOut(PmsOptions.codec) ::
-      polygonsCodec ::
-      VectorOfSectors.codec
+      vectorOfN(intL(32), PmsPolygon.codec) ::
+      VectorOfSectors.codec ::
+      vectorOfN(intL(32), PmsObject.codec)
     ).as[PmsFile]
 }
