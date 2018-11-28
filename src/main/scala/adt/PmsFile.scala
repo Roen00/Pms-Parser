@@ -31,18 +31,18 @@ case class PmsFile(
   polygons: Vector[PmsPolygon],
   vectorOfSectors: VectorOfSectors,
   objects: Vector[PmsObject],
-  sceneries: Vector[PmsScenery]
+  sceneries: Vector[PmsScenery],
+  colliders: Vector[PmsCollider]
 )
 
 object PmsFile {
-
-
   val codec: Codec[PmsFile] = (
     logToStdOut(PmsHeader.codec) ::
       logToStdOut(PmsOptions.codec) ::
       vectorOfN(intL(32), PmsPolygon.codec) ::
       VectorOfSectors.codec ::
       vectorOfN(intL(32), PmsObject.codec) ::
-      vectorOfN(intL(32), PmsScenery.codec)
+      vectorOfN(intL(32), PmsScenery.codec) ::
+      vectorOfN(intL(32), PmsCollider.codec)
     ).as[PmsFile]
 }

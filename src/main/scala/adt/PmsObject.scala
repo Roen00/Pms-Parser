@@ -33,7 +33,7 @@ object PmsObject {
       ("rotation" | floatL) ::
       ("scaleX" | floatL) ::
       ("scaleY" | floatL) ::
-      ("alpha" | ushort8) ::
+      ("alpha" | ushortL(8)) ::
       ("filler2" | intL(24)) ::
       ("color" | PmsColor.codec) ::
       ("level" | ushortL(8)) ::
