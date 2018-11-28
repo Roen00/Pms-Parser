@@ -33,7 +33,8 @@ case class PmsFile(
   objects: Vector[PmsObject],
   sceneries: Vector[PmsScenery],
   colliders: Vector[PmsCollider],
-  spawnPoints: Vector[PmsSpawnPoint]
+  spawnPoints: Vector[PmsSpawnPoint],
+  wayPoints: Vector[PmsWayPoint]
 )
 
 object PmsFile {
@@ -45,6 +46,7 @@ object PmsFile {
       vectorOfN(intL(32), PmsObject.codec) ::
       vectorOfN(intL(32), PmsScenery.codec) ::
       vectorOfN(intL(32), PmsCollider.codec) ::
-      vectorOfN(intL(32), PmsSpawnPoint.codec)
+      vectorOfN(intL(32), PmsSpawnPoint.codec) ::
+      vectorOfN(intL(32), PmsWayPoint.codec)
     ).as[PmsFile]
 }
