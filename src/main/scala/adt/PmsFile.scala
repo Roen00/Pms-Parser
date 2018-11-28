@@ -30,7 +30,8 @@ case class PmsFile(
   options: PmsOptions,
   polygons: Vector[PmsPolygon],
   vectorOfSectors: VectorOfSectors,
-  objects: Vector[PmsObject]
+  objects: Vector[PmsObject],
+  sceneries: Vector[PmsScenery]
 )
 
 object PmsFile {
@@ -41,6 +42,7 @@ object PmsFile {
       logToStdOut(PmsOptions.codec) ::
       vectorOfN(intL(32), PmsPolygon.codec) ::
       VectorOfSectors.codec ::
-      vectorOfN(intL(32), PmsObject.codec)
+      vectorOfN(intL(32), PmsObject.codec) ::
+      vectorOfN(intL(32), PmsScenery.codec)
     ).as[PmsFile]
 }
