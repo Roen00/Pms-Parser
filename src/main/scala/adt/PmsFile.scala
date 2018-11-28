@@ -34,12 +34,14 @@ case class PmsFile(
 
 object PmsFile {
 
+  private val polygonsCodec: Codec[Vector[PmsPolygon]] = ulongL(32).consume(polygonCount => {
+    vectorOfN(provide(polygonCount.toInt), PmsPolygon.codec)
+  })(_.length)
+
   val codec: Codec[PmsFile] = (
     logToStdOut(PmsHeader.codec) ::
       logToStdOut(PmsOptions.codec) ::
-      ulongL(32).consume(polygonCount => {
-        vectorOfN(provide(polygonCount.toInt), PmsPolygon.codec)
-      })(_.length) ::
+      polygonsCodec ::
       VectorOfSectors.codec
     ).as[PmsFile]
 }
