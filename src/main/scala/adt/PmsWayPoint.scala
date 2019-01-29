@@ -2,7 +2,6 @@ package adt
 
 import scodec._
 import scodec.codecs._
-import shapeless._
 
 case class PmsWayPoint(
   active: Byte,
@@ -20,31 +19,28 @@ case class PmsWayPoint(
   c2: Short,
   c3: Short,
   filler2: Int,
-  connections: Vector[Long],
-  filler3: Vector[Long]
+  connectionsSize: Int,
+  connections: Vector[Int]
 )
 
 object PmsWayPoint {
   val codec: Codec[PmsWayPoint] = (
-    byte ::
-      int24L ::
+    logToStdOut("active" | byte) ::
+      logToStdOut("filler1" | int24L) ::
+      logToStdOut("id" | int32L) ::
+      logToStdOut("x" | int32L) ::
+      logToStdOut("y" | int32L) ::
+      logToStdOut("left" | byte) ::
+      logToStdOut("right" | byte) ::
+      logToStdOut("up" | byte) ::
+      logToStdOut("down" | byte) ::
+      logToStdOut("jet" | byte) ::
+      logToStdOut("path" | shortL(8)) ::
+      logToStdOut("action" | shortL(8)) ::
+      logToStdOut("c2" | shortL(8)) ::
+      logToStdOut("c3" | shortL(8)) ::
+      logToStdOut("filler3" | int24L) ::
       int32L ::
-      int32L ::
-      int32L ::
-      byte ::
-      byte ::
-      byte ::
-      byte ::
-      byte ::
-      shortL(8) ::
-      shortL(8) ::
-      shortL(8) ::
-      shortL(8) ::
-      int24L ::
-      vectorOfN(int32L, longL(32)).consume { connections =>
-        provide(connections) :: vectorOfN(provide(20 - connections.size), longL(32))
-      } { case connections :: filler :: HNil =>
-        Vector.fill(20 - connections.size)(0)
-      }
+      vectorOfN(provide(20), int32L)
     ).as[PmsWayPoint]
 }
