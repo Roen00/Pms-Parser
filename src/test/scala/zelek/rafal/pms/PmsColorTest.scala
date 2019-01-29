@@ -1,4 +1,4 @@
-package adt
+package zelek.rafal.pms
 
 import org.scalatest.{FunSuite, Matchers}
 import scodec.Attempt

@@ -1,11 +1,9 @@
-package adt
+package zelek.rafal.pms
 
 import org.scalatest.{FunSuite, Matchers}
 import scodec.Attempt
 import scodec.Attempt.Successful
 import scodec.bits._
-import scodec.codecs.{intL, vectorOfN}
-import scodec._
 import scodec.codecs._
 
 class PmsWayPointTest extends FunSuite with Matchers {

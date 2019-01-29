@@ -1,4 +1,4 @@
-package adt
+package zelek.rafal.pms
 
 import scodec.Codec
 import scodec.codecs._
